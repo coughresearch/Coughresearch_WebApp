@@ -1,0 +1,422 @@
+.Form {
+  width: 640px;
+  padding-top: 20px;
+  min-width: 300px;
+  margin: auto;
+}
+a{
+  text-decoration: none;
+  color: #000;
+}
+.linkClass{
+  margin-top: -21px;
+  margin-bottom: 18px;
+  letter-spacing: 2px;
+  /* border-bottom: 1px solid dimgrey;
+   */
+   color:grey;
+  font-weight: 500;
+
+}
+.secondary-head {
+  text-align: justify;
+  color: dimgrey;
+}
+.Hero-Heading {
+  width: 640px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.main-headin-center {
+  font-weight: bold;
+  font-size: 1.3rem;
+}
+.Form h1 {
+  font-size: 28px;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.heroImage {
+  width: 180px;
+  margin: auto;
+}
+.Recorder {
+  display: flex;
+  justify-content: center;
+  width: 640px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.Audio {
+  display: flex;
+  justify-content: center;
+  width: 640px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.Audio-button {
+  background-color: #00b1fd;
+  border: none;
+  outline: none;
+  color: #ffffff;
+}
+.recording-line{
+  color: #a9a9a9;
+}
+.compatibility-issue {
+  color: #808080;
+  color: #808080;
+  font-weight: bold;
+}
+@media (max-width: 640px) {
+  .Form {
+    width: 300px;
+    min-width: 300px;
+  }
+  .secondary-head {
+    text-align: justify;
+    color: dimgrey;
+    margin-top: -7px;
+    font-size: 0.8rem !important;
+    line-height: 1.5rem !important;
+  }
+  .Recorder {
+    width: 300px;
+    min-width: 300px;
+  }
+  .Audio {
+    width: 300px;
+    min-width: 300px;
+    flex-direction: column;
+  }
+  .Audio-button {
+    height: 50px;
+  }
+  .Hero-Heading {
+    width: 300px;
+    min-width: 300px;
+  }
+  .Form h1 {
+    font-size: 25px;
+    margin-top: -2px;
+  }
+
+  .form-option {
+    height: 75px !important;
+  }
+  .FormButton {
+    margin-left: 75px;
+  }
+  .Form-Input {
+    width: 95% !important;
+  }
+  .checkboxHeading {
+    line-height: 2rem;
+  }
+  .main-headin-center {
+    font-size: 0.9rem;
+  }
+  .recording-line{
+    font-size: 0.9rem !important;
+    line-height: 1.4rem;
+    margin-top: -9px;
+  }
+  .bottomHeading{
+    font-size: 24px !important;
+    margin-bottom: -11px;
+  }
+  .linkClass{
+    letter-spacing: 1px !important;
+  }
+}
+.checkboxHeading {
+  margin-bottom: 15px;
+  font-size: 1.3rem;
+  font-weight: 400;
+}
+.successful-msg {
+  color: green;
+  display: inline-block;
+  font-size: 0.9rem;
+  margin-top: -17px;
+  margin-bottom: 10px;
+  margin-left: 20px;
+  padding: 0;
+}
+.form-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e6e6e6;
+  height: 60px;
+}
+.Form-Input {
+  background-color: #ffffff;
+  height: 48px;
+  width: 98%;
+  border-radius: 2px;
+  border: 1px solid skyblue;
+  margin-bottom: 20px;
+  padding-left: 20px;
+}
+input[type="checkbox"] {
+  width: 20px;
+  height: 35px;
+}
+.CheckBox_Flex {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.CheckBox_Flex label {
+  color: #808080;
+  font-size: 1.35rem !important;
+  font-weight: 400 !important;
+  padding-left: 35px;
+  cursor: pointer;
+}
+.FormButton {
+  width: 150px;
+  height: 50px;
+  /* border: 1px solid #444444; */
+  background-color: #00b1fd;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.copyToclipButton {
+  width: 80px;
+  height: 40px;
+  /* border: 1px solid #444444; */
+  background-color: #00b1fd;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 2px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 17px;
+}
+.copytoClipboard {
+  border: 1px solid #c3c3c3;
+  display: flex;
+  color: #808080;
+  /* align-items: center; */
+  justify-content: space-between;
+  width: 300px;
+  height: 40px;
+  margin: auto;
+}
+.userId {
+  margin-left: 10px;
+  margin-top: 10px;
+}
+.copied {
+  color: #00b1fd;
+  font-weight: 500;
+  font-size: 0.8rem;
+  display: block;
+  text-align: center;
+}
+.MainTextId {
+  text-align: justify;
+  margin-top: 1px;
+  margin-bottom: 15px;
+  color: indianred;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.icons {
+  margin-right: 10px;
+}
+
+/* check box  */
+/* The container */
+.container-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom checkbox */
+.container-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  margin-top: 3px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #efefef;
+}
+
+/* On mouse-over, add a grey background color */
+.container-checkbox:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container-checkbox input:checked ~ .checkmark {
+  background-color: rgb(50, 179, 235);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.container-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container-checkbox .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* CheckBox */
+.MainForm-Radio {
+  margin-top: -46px;
+  height: 264px;
+  margin-left: -23px;
+}
+.MainForm-Radio ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* overflow: auto; */
+}
+
+ul li {
+  color: #aaaaaa;
+  display: block;
+  position: relative;
+  float: left;
+  width: 100%;
+  height: 60px;
+  /* border-bottom: 1px solid #333; */
+}
+
+ul li input[type="radio"] {
+  position: absolute;
+  visibility: hidden;
+}
+
+ul li label {
+  display: block;
+  color: #808080;
+  position: relative;
+  font-weight: 400;
+  font-size: 1.2em;
+  padding: 23px 25px 25px 69px;
+  margin: 10px auto;
+  height: 30px;
+  z-index: 9;
+  cursor: pointer;
+  -webkit-transition: all 0.25s linear;
+}
+
+ul li:hover label {
+  color: rgb(50, 179, 235);
+}
+
+ul li .check {
+  display: block;
+  position: absolute;
+  border: 5px solid #efefef;
+  border-radius: 100%;
+  height: 25px;
+  width: 25px;
+  top: 30px;
+  left: 20px;
+  z-index: 5;
+  transition: border 0.25s linear;
+  -webkit-transition: border 0.25s linear;
+}
+
+ul li:hover .check {
+  border: 5px solid rgb(50, 179, 235);
+}
+
+ul li .check::before {
+  display: block;
+  position: absolute;
+  content: "";
+  border-radius: 100%;
+  height: 15px;
+  width: 15px;
+  top: 5px;
+  left: 5px;
+  margin: auto;
+  transition: background 0.25s linear;
+  -webkit-transition: background 0.25s linear;
+}
+
+input[type="radio"]:checked ~ .check {
+  border: 5px solid rgb(50, 179, 235);
+}
+
+input[type="radio"]:checked ~ .check::before {
+  background: rgb(50, 179, 235);
+}
+
+input[type="radio"]:checked ~ label {
+  color: rgb(50, 179, 235);
+}
+.bottomHeading{
+  font-size: 31px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: darkslategray;
+  margin-top: 27px;
+}
+.bottomText{
+  text-align: center;
+  color: grey;
+  padding-top: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+
+}
