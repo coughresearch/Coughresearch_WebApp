@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": process.env.REACT_APP_NAME
+    "staging": "cough-research"
   }
 }
