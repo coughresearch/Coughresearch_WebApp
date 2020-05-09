@@ -1,33 +1,33 @@
-.Recording-Main{
-    min-width: 300px;
-    margin: auto;
-    overflow: hidden;
+.Recording-Main {
+  min-width: 300px;
+  margin: auto;
+  overflow: hidden;
 }
-.Recording-buttons{
-    display: flex;
-    align-items: center;
+.Recording-buttons {
+  display: flex;
+  align-items: center;
 }
-.Recording-Main button{
-    width: 113px;
-    height: 50px;
-    background-color: #00b1fd;
-    color: #ffffff;
-    font-size: 1.06rem;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    text-align: center;
-    margin-right: 20px;
+.Recording-Main button {
+  width: 113px;
+  height: 50px;
+  background-color: #879ba0;
+  color: #ffffff;
+  font-size: 1.06rem;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: center;
+  margin-right: 20px;
 }
-.recordIcon{
-    margin-right: 7px;
+.recordIcon {
+  margin-right: 7px;
 }
 @media (max-width: 640px) {
-    .Recording-Main{
+  .Recording-Main {
     margin-top: -38px;
-    }
+  }
 }

@@ -4,23 +4,22 @@
   min-width: 300px;
   margin: auto;
 }
-a{
+a {
   text-decoration: none;
   color: #000;
 }
-.linkClass{
+.linkClass {
   margin-top: -21px;
   margin-bottom: 18px;
   letter-spacing: 2px;
   /* border-bottom: 1px solid dimgrey;
    */
-   color:grey;
+  color: grey;
   font-weight: 500;
-
 }
 .secondary-head {
   text-align: justify;
-  color: dimgrey;
+  color: #7f888a;
 }
 .Hero-Heading {
   width: 640px;
@@ -61,12 +60,12 @@ a{
   margin-bottom: 20px;
 }
 .Audio-button {
-  background-color: #00b1fd;
+  background-color: #808080;
   border: none;
   outline: none;
   color: #ffffff;
 }
-.recording-line{
+.recording-line {
   color: #a9a9a9;
 }
 .compatibility-issue {
@@ -81,7 +80,7 @@ a{
   }
   .secondary-head {
     text-align: justify;
-    color: dimgrey;
+    color: #879ba0;
     margin-top: -7px;
     font-size: 0.8rem !important;
     line-height: 1.5rem !important;
@@ -115,7 +114,7 @@ a{
   }
   .Form-Input {
     width: 95% !important;
-    margin-top:20px;
+    margin-top: 20px;
   }
   .checkboxHeading {
     line-height: 2rem;
@@ -123,17 +122,23 @@ a{
   .main-headin-center {
     font-size: 0.9rem;
   }
-  .recording-line{
+  .recording-line {
     font-size: 0.9rem !important;
     line-height: 1.4rem;
     margin-top: -9px;
   }
-  .bottomHeading{
+  .bottomHeading {
     font-size: 24px !important;
     margin-bottom: -11px;
   }
-  .linkClass{
+  .linkClass {
     letter-spacing: 1px !important;
+  }
+  .buttonFix {
+    margin: auto;
+    height: 40px !important;
+    width: 140px !important;
+    font-size: 10px !important;
   }
 }
 .checkboxHeading {
@@ -405,7 +410,7 @@ input[type="radio"]:checked ~ .check::before {
 input[type="radio"]:checked ~ label {
   color: rgb(50, 179, 235);
 }
-.bottomHeading{
+.bottomHeading {
   font-size: 31px;
   text-align: center;
   font-weight: bold;
@@ -413,19 +418,19 @@ input[type="radio"]:checked ~ label {
   color: darkslategray;
   margin-top: 27px;
 }
-.bottomText{
+.bottomText {
   text-align: center;
   color: grey;
   padding-top: 20px;
   font-weight: 500;
   letter-spacing: 1px;
-
 }
-.buttonFix{
+.buttonFix {
   font-size: 1rem;
   width: 280px;
+  border-radius: 6px;
 }
-.upload-button{
+.upload-button {
   background-color: #808080;
   letter-spacing: normal;
   text-transform: capitalize;

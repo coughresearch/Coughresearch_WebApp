@@ -16,6 +16,7 @@ import {
   faWind,
   faHeadSideVirus,
   faCheckCircle,
+  faMicrophone,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Recording from "../Recording/Recording";
@@ -175,8 +176,7 @@ const MainForm = () => {
           Swal.fire({
             title: "",
             html:
-              `Stay Home and Join us in this fight against COVID-19 by sharing this app with
-           your friend circle, doctors and social media. we are counting on you.<br/>` +
+              `Stay Home and Join us in this fight against COVID-19 by sharing this app with your friends, doctors and on social media. we are counting on you.<br/>` +
               `Doctors, Please support us in this research by providing COVID-19 patients cough sounds.<br/>` +
               `<b>Together, We can!</b>`,
             icon: "success",
@@ -241,8 +241,9 @@ const MainForm = () => {
             </div>
           </div>
           <div className="checkboxHeading recording-line">
-            Click on the “record” buttons and cough three times after press
-            "upload".
+            We need your two cough recordings, each recording should be at least
+            3 sec, Please click on the “record” buttons and cough three times
+            after press "upload".
           </div>
         </div>
         {/* Recording 
@@ -251,10 +252,20 @@ const MainForm = () => {
         
       Logic  */}
         <div>
-          <button className="FormButton buttonFix">Cough recording 1</button>
+          <button
+            className="FormButton buttonFix"
+            onClick={() => {
+              if (recordingNo === -1) {
+                setRecordingNo(1);
+              }
+            }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faMicrophone} /> Cough recording 1
+          </button>
         </div>
 
-        {recordingNo === -1 || recordingNo === 1 ? (
+        {recordingNo === 1 ? (
           <div>
             {!toggler && (
               <div>
@@ -310,14 +321,16 @@ const MainForm = () => {
               >
                 <FontAwesomeIcon icon={faCheckCircle} />
               </span>
-              Recording One is Done
+              Cough recording 1 has been saved.
             </h2>{" "}
           </div>
         ) : null}
 
         <div>
           {" "}
-          <button className="FormButton buttonFix">Cough recording 2</button>
+          <button className="FormButton buttonFix">
+            <FontAwesomeIcon icon={faMicrophone} /> Cough recording 2
+          </button>
         </div>
         {recordingNo === 2 ? (
           <div>
@@ -375,15 +388,18 @@ const MainForm = () => {
               >
                 <FontAwesomeIcon icon={faCheckCircle} />
               </span>
-              Recording TWO is Done
+              Cough recording 2 has been saved.
             </h2>{" "}
           </div>
         ) : null}
+        <br />
         <div className="checkboxHeading recording-line">
           Click on the “record” button and take three deep breathe from your
           mouth after press "upload".
         </div>
-        <button className="FormButton buttonFix">Breathe recording</button>
+        <button className="FormButton buttonFix">
+          <FontAwesomeIcon icon={faMicrophone} /> Breathe recording
+        </button>
         {recordingNo === 3 ? (
           <div>
             {!toggler2 && (
@@ -440,7 +456,7 @@ const MainForm = () => {
               >
                 <FontAwesomeIcon icon={faCheckCircle} />
               </span>
-              Recording 3 is Done
+              Breathe recording has been saved.
             </h2>{" "}
           </div>
         ) : null}
@@ -478,7 +494,7 @@ const MainForm = () => {
             </li>
             {coronaStatus === "covid positive" && (
               <input
-                placeholder="Please Enter How Many days or Weeks you are Covid Positive"
+                placeholder="When did you get tested positive? (e.g., 2 weeks 3 days, one month)"
                 className="Form-Input"
                 style={{
                   width: "95%",
@@ -790,7 +806,7 @@ const MainForm = () => {
         <br />
         <br />
         <input
-          placeholder="Please Enter Your Feed Back"
+          placeholder="Feedback ( Optional )"
           className="Form-Input"
           onChange={(e) => setFeedBack(e.target.value)}
           value={feedBack}
@@ -800,7 +816,10 @@ const MainForm = () => {
         </button>
         <div>
           <div className="bottomHeading">TOGETHER, WE CAN!</div>
-          <div className="bottomText">contact@coughresearch.ai</div>
+          <div className="bottomText">
+            Please write to us at <b> contact@coughresearch.ai</b> if the mic is
+            not working or if you face any other issue.
+          </div>
         </div>
         <br />
         <br />
