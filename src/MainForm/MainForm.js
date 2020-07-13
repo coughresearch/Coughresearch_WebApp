@@ -15,6 +15,8 @@ import {
   faToiletPaper,
   faWind,
   faHeadSideVirus,
+  faCheckCircle,
+  faMicrophone,
 } from "@fortawesome/free-solid-svg-icons";
 
 import Recording from "../Recording/Recording";
@@ -28,12 +30,28 @@ import Swal from "sweetalert2";
 import CustomizedSlider from "../Slider/Slider";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import heroImg from "./images/heroImg.png";
-import moment from 'moment';
+import moment from "moment";
 
 const MainForm = () => {
+  const [timeToCovidPositive, setTimeToCovidPositive] = useState("");
+  const [feedBack, setFeedBack] = useState("");
+
+  const [soundURL1, setSoundURL1] = useState();
+  const [soundURL2, setSoundURL2] = useState();
+  const [soundURL3, setSoundURL3] = useState();
+
+  //Array for handling 3 recording response
+  const [recordingNo, setRecordingNo] = useState(-1);
+
   const user_id = `contributer_${Date.now().toString()}`;
+  //For Multiple Sound
   const [sound, setSound] = useState();
+  const [sound1, setSound1] = useState();
+  const [sound2, setSound2] = useState();
+  //For Multiple Toggles
   const [toggler, setToggler] = useState(false);
+  const [toggler1, setToggler1] = useState(false);
+  const [toggler2, setToggler2] = useState(false);
   //Form constant
   const [coronaStatus, setCoronaStatus] = useState("");
   const [age, setAge] = useState("");
@@ -60,46 +78,76 @@ const MainForm = () => {
   const [copied, setCopied] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  const onSubmit = () => {
-    var soundUrl = "";
-    if (sound) {
-      setLoading(true);
-      //Audio Upload
-      var uploadTask = firebaseStorage
-        .child(`files/files/${Date.now().toString()}`)
-        .put(sound.blob);
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => { },
-        (error) => {
-          console.log("some error", error);
-        },
-        () => {
-          uploadTask.snapshot.ref
-            .getDownloadURL()
-            .then(function (downloadURL) {
-              soundUrl = downloadURL;
-              if (sound) {
-                PostData();
-              }
-            })
-            .catch((e) => console.log("some Error", e));
-        }
-      );
-    } else {
-      Swal.fire(
-        "OOOPs",
-        "Please record your cough sound, open in chrome browser if the recording is not working.",
-        "error"
-      );
+
+  const SoundUpload = (Number) => {
+    let soundValue = "";
+    if (Number === 1) {
+      soundValue = sound.blob;
     }
+    if (Number === 2) {
+      soundValue = sound1.blob;
+    }
+    if (Number === 3) {
+      soundValue = sound2.blob;
+    }
+
+    //Audio Upload
+    var uploadTask = firebaseStorage
+      .child(`files/files/${Date.now().toString()}`)
+      .put(soundValue);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => {
+        console.log("some error", error);
+      },
+      () =>
+        uploadTask.snapshot.ref
+          .getDownloadURL()
+          .then(function (downloadURL) {
+            if (Number === 1) {
+              console.log("URL For Sound 1", downloadURL);
+              setSoundURL1(downloadURL);
+            }
+            if (Number === 2) {
+              console.log("URL For Sound 2", downloadURL);
+
+              setSoundURL2(downloadURL);
+            }
+            if (Number === 3) {
+              console.log("URL For Sound 3", downloadURL);
+
+              setSoundURL3(downloadURL);
+            }
+
+            //  if (sound) {
+            //    PostData();
+            //  }
+          })
+          .catch((e) => console.log("some Error", e))
+    );
+  };
+  // else {
+  //  Swal.fire(
+  //    "OOOPs",
+  //    "Please record your cough sound, open in chrome browser if the recording is not working.",
+  //    "error"
+  //  );
+
+  const onSubmit = () => {
     const PostData = () => {
+      setLoading(true);
       firebaseApp
         .database()
         .ref("/patient" + Date.now().toString())
         .set({
           user_id: user_id,
-          sound: soundUrl,
+          coughSound1: soundURL1,
+          coughSound2: soundURL2,
+          breathingSound: soundURL3,
+          timeToCovidPositive: timeToCovidPositive,
+          feedBack: feedBack,
           coronaStatus: coronaStatus,
           age: age,
           thermometer: thermometer,
@@ -121,89 +169,306 @@ const MainForm = () => {
           asthma: asthma,
           bloodPressureYesNo: bloodPressureSlide,
           diabetesYesNo: diabetesSlid,
-          Date: moment().utcOffset("+05:30").format()
+          Date: moment().utcOffset("+05:30").format(),
         })
         .then((c) => {
           setLoading(false);
           Swal.fire({
             title: "",
-            html: `Stay Home and Join us in this fight against COVID-19 by sharing this app with
-           your friend circle, doctors and social media. we are counting on you.<br/>`+
+            html:
+              `Stay Home and Join us in this fight against COVID-19 by sharing this app with your friends, doctors and on social media. we are counting on you.<br/>` +
               `Doctors, Please support us in this research by providing COVID-19 patients cough sounds.<br/>` +
-              `<b>Together, We can!</b>`, icon: 'success'
-          })
+              `<b>Together, We can!</b>`,
+            icon: "success",
+          });
         })
         .catch((e) => {
           console.log("something went wrong", e);
-          setLoading(true);
+          setLoading(false);
           Swal.fire("OOOPs", "something went wrong", "error");
         });
     };
+    if (soundURL1 && soundURL2 && soundURL3) {
+      PostData();
+    } else {
+      Swal.fire("OOOPs", "Please Record All above Sound First", "error");
+    }
   };
-
   if (sound) {
     setTimeout(() => {
       setToggler(true);
     }, 0);
   }
+  if (sound1) {
+    setTimeout(() => {
+      setToggler1(true);
+    }, 0);
+  }
+  if (sound2) {
+    setTimeout(() => {
+      setToggler2(true);
+    }, 0);
+  }
+
   return (
     <>
       {loading && <Loading />}
       <div className="Form">
         <div className="Hero-Heading">
-          <a href="https://www.coughresearch.ai" target="blank"><img src={heroImg} className="heroImage" alt="heroImage" /></a>
-          <a href="https://www.coughresearch.ai" target="blank"><h1>Cough Research</h1></a>
-          <a href="https://www.coughresearch.ai" target="blank" className="linkClass">www.coughresearch.ai</a>
+          <a href="https://www.coughresearch.ai" target="blank">
+            <img src={heroImg} className="heroImage" alt="heroImage" />
+          </a>
+          <a href="https://www.coughresearch.ai" target="blank">
+            <h1>Cough Research</h1>
+          </a>
+          <a
+            href="https://www.coughresearch.ai"
+            target="blank"
+            className="linkClass"
+          >
+            www.coughresearch.ai
+          </a>
           <div className="checkboxHeading  secondary-head">
             We respect your privacy and contribution. We do not collect any
-            sensitive personal data (e.g., Name, Phone no, Email, Location) We are trying
-            to build an app which can potentially detect COVID-19 using cough
-            sound, fever and other vital information. We need your support and
-            contribution in the project, Please help us in the fight against
-            COVID-19 by filling the form with correct detail.
+            sensitive personal data (e.g., Name, Phone no, Email, Location) We
+            are trying to build an app which can potentially detect COVID-19
+            using cough sound, fever and other vital information. We need your
+            support and contribution in the project, Please help us in the fight
+            against COVID-19 by filling the form with correct detail.
             <br />
             <div className="main-headin-center">
               Your contribution can save lives.
             </div>
           </div>
-          {!toggler && (
-            <div className="checkboxHeading recording-line">
-              Click on the “record” button and cough three times after press
-              Stop.
-            </div>
-          )}
+          <div className="checkboxHeading recording-line">
+            We need your two cough recordings, each recording should be at least
+            3 sec, Please click on the “record” buttons and cough three times
+            after press "upload".
+          </div>
         </div>
-        {!toggler && (
+        {/* Recording 
+        
+        
+        
+      Logic  */}
+        <div>
+          <button
+            className="FormButton buttonFix"
+            onClick={() => {
+              if (recordingNo === -1) {
+                setRecordingNo(1);
+              }
+            }}
+          >
+            {" "}
+            <FontAwesomeIcon icon={faMicrophone} /> Cough recording 1
+          </button>
+        </div>
+
+        {recordingNo === 1 ? (
           <div>
-            <div className="Recorder">
-              <Recording sound={sound} setSound={setSound} />
-            </div>
-            <span className="compatibility-issue">
-              * Currently, we support only the Chrome browser.
-            </span>
+            {!toggler && (
+              <div>
+                <div className="Recorder">
+                  <Recording sound={sound} setSound={setSound} />
+                </div>
+                <span className="compatibility-issue">
+                  * Currently, we support only the Chrome browser.
+                </span>
+              </div>
+            )}
+            {sound && (
+              <>
+                <div className="Audio">
+                  <AudioPlayer
+                    autoPlay
+                    src={sound.blobURL}
+                    onPlay={(e) => {}}
+                  />
+                  <button
+                    className="Audio-button"
+                    onClick={() => {
+                      if (sound) {
+                        setSound(false);
+                        setToggler(false);
+                      }
+                    }}
+                  >
+                    Try Again
+                  </button>
+                </div>
+                <button
+                  className="FormButton upload-button"
+                  onClick={() => {
+                    setRecordingNo(2);
+                    SoundUpload(1);
+                  }}
+                >
+                  Upload
+                </button>
+              </>
+            )}
           </div>
-        )}
-        {sound && (
-          <div className="Audio">
-            <AudioPlayer
-              autoPlay
-              src={sound.blobURL}
-              onPlay={(e) => {}}
-            />
-            <button
-              className="Audio-button"
-              onClick={() => {
-                if (sound) {
-                  setSound(false);
-                  setToggler(false);
-                }
-              }}
-            >
-              Try Again
-            </button>
+        ) : recordingNo !== -1 ? (
+          <div>
+            <h2>
+              <span
+                style={{
+                  color: "#00b1fd",
+                  fontSize: "1.5rem",
+                  paddingRight: "20px",
+                }}
+              >
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </span>
+              Cough recording 1 has been saved.
+            </h2>{" "}
           </div>
-        )}
+        ) : null}
+
+        <div>
+          {" "}
+          <button className="FormButton buttonFix">
+            <FontAwesomeIcon icon={faMicrophone} /> Cough recording 2
+          </button>
+        </div>
+        {recordingNo === 2 ? (
+          <div>
+            {!toggler1 && (
+              <div>
+                <div className="Recorder">
+                  <Recording sound={sound1} setSound={setSound1} />
+                </div>
+                <span className="compatibility-issue">
+                  * Currently, we support only the Chrome browser.
+                </span>
+              </div>
+            )}
+            {sound1 && (
+              <>
+                <div className="Audio">
+                  <AudioPlayer
+                    autoPlay
+                    src={sound1.blobURL}
+                    onPlay={(e) => {}}
+                  />
+                  <button
+                    className="Audio-button"
+                    onClick={() => {
+                      if (sound1) {
+                        setSound1(false);
+                        setToggler1(false);
+                      }
+                    }}
+                  >
+                    Try Again
+                  </button>
+                </div>
+                <button
+                  className="FormButton upload-button"
+                  onClick={() => {
+                    setRecordingNo(3);
+                    SoundUpload(2);
+                  }}
+                >
+                  Upload
+                </button>
+              </>
+            )}
+          </div>
+        ) : recordingNo === 3 || recordingNo === 0 ? (
+          <div>
+            <h2>
+              <span
+                style={{
+                  color: "#00b1fd",
+                  fontSize: "1.5rem",
+                  paddingRight: "20px",
+                }}
+              >
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </span>
+              Cough recording 2 has been saved.
+            </h2>{" "}
+          </div>
+        ) : null}
         <br />
+        <div className="checkboxHeading recording-line">
+          Click on the “record” button and take three deep breathe from your
+          mouth after press "upload".
+        </div>
+        <button className="FormButton buttonFix">
+          <FontAwesomeIcon icon={faMicrophone} /> Breathe recording
+        </button>
+        {recordingNo === 3 ? (
+          <div>
+            {!toggler2 && (
+              <div>
+                <div className="Recorder">
+                  <Recording sound={sound2} setSound={setSound2} />
+                </div>
+                <span className="compatibility-issue">
+                  * Currently, we support only the Chrome browser.
+                </span>
+              </div>
+            )}
+            {sound2 && (
+              <>
+                <div className="Audio">
+                  <AudioPlayer
+                    autoPlay
+                    src={sound2.blobURL}
+                    onPlay={(e) => {}}
+                  />
+                  <button
+                    className="Audio-button"
+                    onClick={() => {
+                      if (sound2) {
+                        setSound2(false);
+                        setToggler2(false);
+                      }
+                    }}
+                  >
+                    Try Again
+                  </button>
+                </div>
+                <button
+                  className="FormButton upload-button"
+                  onClick={() => {
+                    setRecordingNo(0);
+                    SoundUpload(3);
+                  }}
+                >
+                  Upload
+                </button>
+              </>
+            )}
+          </div>
+        ) : recordingNo === 0 ? (
+          <div>
+            <h2>
+              <span
+                style={{
+                  color: "#00b1fd",
+                  fontSize: "1.5rem",
+                  paddingRight: "20px",
+                }}
+              >
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </span>
+              Breathe recording has been saved.
+            </h2>{" "}
+          </div>
+        ) : null}
+        {/* //Recording 
+        
+        
+        
+        Logic */}
+
+        <br />
+        <br />
+
         <div
           className="checkboxHeading"
           style={{
@@ -212,7 +477,7 @@ const MainForm = () => {
             paddingBottom: "10px",
           }}
         >
-          I am{" "}
+          I am
         </div>
         <div className="MainForm-Radio">
           <ul>
@@ -227,7 +492,21 @@ const MainForm = () => {
 
               <div className="check"></div>
             </li>
-
+            {coronaStatus === "covid positive" && (
+              <input
+                placeholder="When did you get tested positive? (e.g., 2 weeks 3 days, one month)"
+                className="Form-Input"
+                style={{
+                  width: "95%",
+                  marginLeft: "3%",
+                  marginTop: "20px",
+                  marginBottom: "-20px",
+                }}
+                type="text"
+                onChange={(e) => setTimeToCovidPositive(e.target.value)}
+                value={timeToCovidPositive}
+              />
+            )}
             <li>
               <input
                 type="radio"
@@ -289,6 +568,7 @@ const MainForm = () => {
           placeholder="Age in Years"
           className="Form-Input"
           type="number"
+          style={coronaStatus === "covid positive" ? { marginTop: "20px" } : {}}
           onChange={(e) => setAge(e.target.value)}
           value={age}
         />
@@ -523,12 +803,23 @@ const MainForm = () => {
             <CustomizedSlider setValue={setBloodPressureSlide} YesNo={true} />
           </div>
         </div>
+        <br />
+        <br />
+        <input
+          placeholder="Feedback ( Optional )"
+          className="Form-Input"
+          onChange={(e) => setFeedBack(e.target.value)}
+          value={feedBack}
+        />
         <button className="FormButton" onClick={onSubmit}>
           submit
-          </button>
+        </button>
         <div>
           <div className="bottomHeading">TOGETHER, WE CAN!</div>
-          <div className="bottomText">contact@coughresearch.ai</div>
+          <div className="bottomText">
+            Please write to us at <b> contact@coughresearch.ai</b> if the mic is
+            not working or if you face any other issue.
+          </div>
         </div>
         <br />
         <br />
